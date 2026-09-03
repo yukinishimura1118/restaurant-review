@@ -14,7 +14,7 @@ class TweetService
 
     public function getTweets()
     {
-        return Tweet::with('images')
+        return Tweet::with(['images','likes','comments'])
             ->orderBy('created_at', 'desc')
             ->get();
     }

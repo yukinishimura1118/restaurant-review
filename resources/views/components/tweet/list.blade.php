@@ -1,3 +1,5 @@
+
+
 @props([
     'tweets' => []
 ])
@@ -13,13 +15,49 @@
         </span>
         <p class="text-gray-600">{!! nl2br(e($tweet->content)) !!}</p>
         <x-tweet.images :images="$tweet->images"/>
+            <form method="POST" action="{{ route('tweet.like', $tweet) }}">
+                @csrf
+
+                <button type="submit" class="text-red-500 font-bold">
+                    @if ($tweet->likes->where('user_id', auth()->id())->count())
+                        ♥ いいね
+                    @else
+                        ♡ いいね
+                    @endif
+                </button>
+
+                <span>
+                    {{ $tweet->likes->count() }}
+                </span>
+            </form>
+            <form method="POST" action="{{ route('tweet.like', $tweet) }}">
+                @csrf
+
+                <button type="submit" class="text-red-500 font-bold">
+                    @if ($tweet->likes->where('user_id', auth()->id())->count())
+                        ♥ いいね
+                    @else
+                        ♡ いいね
+                    @endif
+                </button>
+
+                <span>
+                    {{ $tweet->likes->count() }}
+                </span>
+            </form>
         </div>
         <div>
             <!-- TODO編集と削除　-->
 
             <x-tweet.options :tweetId="$tweet->id" :userId="$tweet->user_id">
             </x-tweet.options>
+            <form method="POST" action="{{ route('tweet.like', $tweet) }}" class="mt-2">
+                @csrf
 
+                <button type="submit" class="text-red-500 font-bold">
+                    ♡ {{ $tweet->likes->count() }}
+                </button>
+            </form>
         </div>
 
         </li>

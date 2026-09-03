@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
+        'is_banned',
     ];
 
     /**
@@ -41,9 +43,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'is_admin' => 'boolean',
+        'is_banned' => 'boolean',
     ];
     public function tweets()
     {
         return $this->hasMany(Tweet::class);
     }
+
+     public function likes()
+    {
+     return $this->hasMany(Like::class);
+    }
+    public function comments()
+    {
+    return $this->hasMany(Comment::class);
+    }
+
+
 }
