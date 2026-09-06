@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Tweet;
@@ -42,8 +43,12 @@ class AdminController extends Controller
        }
        public function deleteReview(Review $review)
        {
-        $review->delete();
+           if ($review->image) {
+               Storage::disk('public')->delete($review->image);
+           }
 
-         return redirect()->route('admin.index');
-        }
+           $review->delete();
+
+           return redirect()->route('admin.index');
+       }
 }
