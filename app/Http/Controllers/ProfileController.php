@@ -57,4 +57,17 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    public function mypage(Request $request): View
+    {
+        $reviews = $request->user()
+            ->reviews()
+            ->with('restaurant')
+            ->latest()
+            ->get();
+
+        return view('profile.mypage', [
+            'user' => $request->user(),
+            'reviews' => $reviews,
+        ]);
+    }
 }
