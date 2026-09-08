@@ -41,6 +41,25 @@
                 <p>
                 {{ $review->comment }}
                 </p>
+                <div class="mt-2">
+                    <a href="{{ route('reviews.edit', $review) }}"
+                       class="text-blue-500 hover:underline">
+                        レビューを編集
+                    </a>
+
+                    <form action="{{ route('reviews.destroy', $review) }}"
+                          method="POST"
+                          class="inline">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit"
+                                class="text-red-500 hover:underline ml-4"
+                                onclick="return confirm('このレビューを削除しますか？')">
+                            レビューを削除
+                        </button>
+                    </form>
+                </div>
          </div>
       @empty
         <p>
