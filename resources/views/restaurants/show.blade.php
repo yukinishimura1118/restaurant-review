@@ -255,7 +255,7 @@
                         action="{{ route('reviews.destroy', $review) }}"
                         method="POST"
                         style="display: inline;"
-                        onsubmit="return confirm('削除してもよろしいですか？');"
+                        onsubmit="return confirm('このレビューを削除してもよろしいですか？');"
                     >
                         @csrf
                         @method('DELETE')
